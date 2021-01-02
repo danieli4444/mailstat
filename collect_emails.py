@@ -5,7 +5,7 @@ from email.message import EmailMessage
 
 # Notice that if you are using gmail you need to use allow "Less Secure Apps Access"
 ORG_EMAIL   = "@gmail.com"
-FROM_EMAIL  = "mymail" + ORG_EMAIL
+FROM_EMAIL  = "yourmail" + ORG_EMAIL
 FROM_PWD    = "12345678"
 SMTP_SERVER = "imap.gmail.com"
 SMTP_PORT   = 993
