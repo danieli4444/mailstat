@@ -9,12 +9,12 @@ import os
 import pprint
 
 
-TALPINET_MAILS_FOLDER_PATH = "talpinet_email_text\\"
-TALPINET_EMAIL_MESSAGE_FOLDER = "talpinet_email_messages\\"
+PLAIN_TEXT_MAILS_PATH = "talpinet_email_text\\"
+EMAIL_FOLDER_PATH = "talpinet_email_messages\\"
 LOGS_FOLDER= "logs\\"
 
-file_list = os.listdir(TALPINET_EMAIL_MESSAGE_FOLDER)
-file_path = TALPINET_EMAIL_MESSAGE_FOLDER + file_list[5]
+file_list = os.listdir(EMAIL_FOLDER_PATH)
+file_path = EMAIL_FOLDER_PATH + file_list[5]
 
 heb_stopwords = ["על","את","לא","של"]
 eng_stopwords = ["cv", "www", "io","guy","ment","linkedin",
@@ -50,26 +50,26 @@ def top_mean_feats(X, features, grp_ids=None, min_tfidf=0.1, top_n=25):
 
 
 def get_all_mails_content_list():
-    file_list = os.listdir(TALPINET_MAILS_FOLDER_PATH)
+    file_list = os.listdir(PLAIN_TEXT_MAILS_PATH)
     mail_content_list = []
     for file in file_list:
-        with open(TALPINET_MAILS_FOLDER_PATH + file, 'r', encoding='utf-8') as fp:
+        with open(PLAIN_TEXT_MAILS_PATH + file, 'r', encoding='utf-8') as fp:
             body = fp.read()
             mail_content_list.append(body)
     print(" gathered all mails content!")
     return mail_content_list
 
 def get_all_mails_body_list():
-    file_list = os.listdir(TALPINET_EMAIL_MESSAGE_FOLDER)
+    file_list = os.listdir(EMAIL_FOLDER_PATH)
     mails_body_list = []
     for file in file_list:
-        cur_email = mailparser.parse_from_file(TALPINET_EMAIL_MESSAGE_FOLDER + file)
+        cur_email = mailparser.parse_from_file(EMAIL_FOLDER_PATH + file)
         mails_body_list.append(cur_email.body)
     print("parsed all mails body!")
     return mails_body_list
 
 def retreive_mail(file_name):
-    mail = mailparser.parse_from_file(TALPINET_EMAIL_MESSAGE_FOLDER + file_name)
+    mail = mailparser.parse_from_file(EMAIL_FOLDER_PATH + file_name)
     return mail
 
 

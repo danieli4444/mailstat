@@ -3,14 +3,15 @@ import email
 import mailparser
 from email.message import EmailMessage
 
+# Notice that if you are using gmail you need to use allow "Less Secure Apps Access"
 ORG_EMAIL   = "@gmail.com"
 FROM_EMAIL  = "mymail" + ORG_EMAIL
 FROM_PWD    = "12345678"
 SMTP_SERVER = "imap.gmail.com"
 SMTP_PORT   = 993
 
-TALPINET_MAILS_FOLDER_PATH = "talpinet_email_text\\"
-TALPINET_EMAIL_MESSAGE_FOLDER = "talpinet_email_messages\\"
+PLAIN_TEXT_MAIL_PATH = "talpinet_email_text\\"
+EMAIL_FOLDER_PATH = "talpinet_email_messages\\"
 
 def getTalpinetMails():
     mail = imaplib.IMAP4_SSL(SMTP_SERVER)
@@ -31,7 +32,7 @@ def getTalpinetMails():
                 numoftalpinetemails += 1
 
                 #save raw full email message format to open later
-                save_msg_string = TALPINET_EMAIL_MESSAGE_FOLDER + "msg_" + str(idx) + ".msg"
+                save_msg_string = EMAIL_FOLDER_PATH + "msg_" + str(idx) + ".msg"
                 with open(save_msg_string,'wb') as f:
                     f.write(bytes(data[0][1]))
 
@@ -40,7 +41,7 @@ def getTalpinetMails():
                     if part.get_content_type() == "text/plain":  # ignore attachments/html
                         body = part.get_payload(decode=True)
                         # pprint.pprint(part.get_payload(decode=True))
-                        save_string = TALPINET_MAILS_FOLDER_PATH + str("dump" + str(idx) + ".txt")
+                        save_string = PLAIN_TEXT_MAIL_PATH + str("dump" + str(idx) + ".txt")
                         # location on disk
                         myfile = open(save_string, 'a', encoding='UTF-8')
                         myfile.write(body.decode('utf-8'))
